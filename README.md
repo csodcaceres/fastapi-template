@@ -1,54 +1,90 @@
 # FastAPI Template
 
-A production-ready FastAPI template following a layered architecture and modern Python development practices.
+A professional FastAPI project template built with modern Python development practices.
 
-## Goals
+This template provides a solid foundation for building scalable REST APIs using FastAPI, SQLAlchemy 2.0, Pydantic Settings, and uv.
 
-This template is designed to provide:
+---
 
-- Clean project structure
-- Separation of concerns
-- Maintainable code
-- Easy testing
-- Scalable architecture
+## Features
+
+- Layered project architecture
+- FastAPI
+- SQLAlchemy 2.0
+- Pydantic Settings
+- Environment configuration
+- Database session management
+- SQLite support
+- Ready to evolve to PostgreSQL
+- uv package manager
+- Type hint friendly
+
+---
 
 ## Technology Stack
 
-- Python
+- Python 3.13+
 - FastAPI
+- SQLAlchemy 2.0
 - Pydantic v2
-- SQLAlchemy 2.x
-- SQLite (development)
-- PostgreSQL (production-ready)
-- Alembic
-- Pytest
+- Pydantic Settings
+- SQLite
+- uv
+
+---
 
 ## Project Structure
 
+```text
+app/
+├── core/
+├── database/
+├── models/
+├── routers/
+├── schemas/
+├── services/
+└── main.py
+
+data/
+docs/
 ```
-project/
-│
-├── app/
-├── docs/
-├── tests/
-├── AGENTS.md
-└── README.md
+
+---
+
+## Getting Started
+
+Clone the repository:
+
+```bash
+git clone https://github.com/csodcaceres/fastapi-template.git
 ```
 
-## Documentation
+Install dependencies:
 
-Project documentation can be found in the `docs` directory.
+```bash
+uv sync
+```
 
-- project-rules.md
-- architecture.md
-- api-conventions.md
+Run the application:
 
-## Development Workflow
+```bash
+uv run uvicorn app.main:app --reload
+```
 
-1. Read the project documentation.
-2. Implement changes following the architecture.
-3. Keep documentation updated.
-4. Write tests when appropriate.
+---
+
+## Roadmap
+
+- [x] Project structure
+- [x] Configuration management
+- [x] Database session management
+- [ ] SQLAlchemy models
+- [ ] Alembic migrations
+- [ ] Docker support
+- [ ] Pytest
+- [ ] GitHub Actions
+
+---
 
 ## License
 
