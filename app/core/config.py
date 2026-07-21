@@ -1,9 +1,13 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
+    # Application
     app_name: str = "FastAPI Project"
     app_version: str = "0.1.0"
     debug: bool = True
+
+    # Database
+    database_url: str = "sqlite:///./data/app.db"
 
     model_config = SettingsConfigDict(
             env_file=".env", 
