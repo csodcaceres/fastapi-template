@@ -1,0 +1,16 @@
+[project]
+name = "fastapi-project"
+version = "0.1.0"
+description = "FastAPI professional template"
+requires-python = ">=3.12"
+
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "sqlalchemy",
+    "pydantic-settings",
+]
+
+
+[tool.uv]
+package = false
