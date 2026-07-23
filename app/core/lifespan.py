@@ -4,8 +4,11 @@ import logging
 from fastapi import FastAPI
 
 from app.core.logging import configure_logging
+from app.database.init_db import init_db
+
 
 logger = logging.getLogger(__name__)
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -21,12 +24,13 @@ async def lifespan(app: FastAPI):
         - Close connections.
         - Release resources.
     """
+
     configure_logging()
 
     logger.info("Application started")
 
-    # Startup code
+    init_db()
+
     yield
-    # Shutdown code
 
     logger.info("Application stopped")

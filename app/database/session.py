@@ -1,24 +1,33 @@
 from collections.abc import Generator
 
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, Session
-
-from pathlib import Path
+from sqlalchemy.orm import Session, sessionmaker
 
 from app.core.config import settings
 
-enigme = create_engine(
-    settings.database_url, 
-    pool_pre_ping=True
+
+engine = create_engine(
+    settings.database_url,
+    pool_pre_ping=True,
+    connect_args=(
+        {"check_same_thread": False}
+        if settings.database_url.startswith("sqlite")
+        else {}
+    ),
 )
 
 SessionLocal = sessionmaker(
-    autocommit=False, 
-    autoflush=False, 
-    bind=enigme
+    bind=engine,
+    autocommit=False,
+    autoflush=False,
+    class_=Session,
 )
 
+
 def get_db() -> Generator[Session, None, None]:
+    """
+    Database session dependency.
+    """
     db = SessionLocal()
     try:
         yield db

@@ -1,9 +1,9 @@
 from app.database.base import Base
-from app.database.session import enigme, get_db, SessionLocal
+from app.database.session import engine, get_db, SessionLocal
 
 __all__ = [
     "Base",
-    "enigme",
+    "engine",
     "get_db",
     "SessionLocal"
 ]

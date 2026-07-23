@@ -6,8 +6,11 @@ from app.core.config import settings
 from app.api.router import api_router
 from app.core.lifespan import lifespan
 from app.core.logging import configure_logging
+from app.exceptions.exceptions import AppException
+from app.routers import items
 
 from app.exceptions.handlers import (
+    app_exception_handler,
     http_exception_handler,
     validation_exception_handler
 )
@@ -23,10 +26,14 @@ app = FastAPI(
 app.include_router(api_router)
 
 app.add_exception_handler(
+    AppException,
+    app_exception_handler,
+)
+
+app.add_exception_handler(
     HTTPException,
     http_exception_handler,
 )
-
 
 app.add_exception_handler(
     RequestValidationError,
