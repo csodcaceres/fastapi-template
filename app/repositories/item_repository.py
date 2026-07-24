@@ -80,9 +80,9 @@ class ItemRepository:
         )
 
         if item is None:
-            return False
+            return None
 
         db.delete(item)
         db.commit()
 
-        return True
+        return item

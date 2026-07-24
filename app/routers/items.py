@@ -2,21 +2,22 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from app.database.session import get_db
-from app.schemas.item import ItemCreate, ItemResponse
+from app.schemas.item import ItemCreate, ItemResponse, ItemUpdate
 from app.services.item_service import ItemService
-
+from app.dependencies import get_item_service
 
 router = APIRouter(
     prefix="/items",
     tags=["Items"],
 )
 
-service = ItemService()
+# service = ItemService()
 
 
 @router.get("/", response_model=list[ItemResponse])
 def list_items(
     db: Session = Depends(get_db),
+    service: ItemService = Depends(get_item_service),
 ):
     return service.get_all(db)
 
@@ -25,6 +26,7 @@ def list_items(
 def create_item(
     item_data: ItemCreate,
     db: Session = Depends(get_db),
+    service: ItemService = Depends(get_item_service),
 ):
     return service.create(
         db,
@@ -36,8 +38,33 @@ def create_item(
 def get_item(
     item_id: int,
     db: Session = Depends(get_db),
+    service: ItemService = Depends(get_item_service),
 ):
     return service.get_by_id(
+        db,
+        item_id,
+    )
+
+@router.put("/{item_id}", response_model=ItemResponse,)
+def update_item(
+    item_id: int,
+    item_data: ItemUpdate,
+    db: Session = Depends(get_db),
+    service: ItemService = Depends(get_item_service),
+):
+    return service.update(
+        db,
+        item_id,
+        item_data,
+    )
+
+@router.delete("/{item_id}", response_model=ItemResponse,)
+def delete_item(
+    item_id: int,
+    db: Session = Depends(get_db),
+    service: ItemService = Depends(get_item_service),
+):
+    return service.delete(
         db,
         item_id,
     )
