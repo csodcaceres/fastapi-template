@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
 
 from app.database.session import get_db
@@ -13,16 +13,14 @@ router = APIRouter(
 
 # service = ItemService()
 
-
-@router.get("/", response_model=list[ItemResponse])
+@router.get("/", response_model=list[ItemResponse], status_code=status.HTTP_200_OK)
 def list_items(
     db: Session = Depends(get_db),
     service: ItemService = Depends(get_item_service),
 ):
     return service.get_all(db)
 
-
-@router.post("/", response_model=ItemResponse)
+@router.post("/", response_model=ItemResponse, status_code=status.HTTP_201_CREATED,)
 def create_item(
     item_data: ItemCreate,
     db: Session = Depends(get_db),
@@ -33,8 +31,7 @@ def create_item(
         item_data,
     )
 
-
-@router.get("/{item_id}", response_model=ItemResponse)
+@router.get("/{item_id}", response_model=ItemResponse, status_code=status.HTTP_200_OK)
 def get_item(
     item_id: int,
     db: Session = Depends(get_db),
@@ -45,7 +42,7 @@ def get_item(
         item_id,
     )
 
-@router.put("/{item_id}", response_model=ItemResponse,)
+@router.put("/{item_id}", response_model=ItemResponse, status_code=status.HTTP_200_OK,)
 def update_item(
     item_id: int,
     item_data: ItemUpdate,
@@ -58,7 +55,7 @@ def update_item(
         item_data,
     )
 
-@router.delete("/{item_id}", response_model=ItemResponse,)
+@router.delete("/{item_id}", response_model=ItemResponse, status_code=status.HTTP_200_OK)
 def delete_item(
     item_id: int,
     db: Session = Depends(get_db),

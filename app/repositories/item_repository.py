@@ -72,7 +72,7 @@ class ItemRepository:
         self,
         db: Session,
         item_id: int,
-    ) -> bool:
+    ) -> Item | None:
 
         item = self.get_by_id(
             db,
