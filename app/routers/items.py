@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from app.database.session import get_db
 from app.schemas.item import ItemCreate, ItemResponse, ItemUpdate
 from app.services.item_service import ItemService
-from app.dependencies import get_item_service
+from app.api.dependencies import get_item_service
 
 router = APIRouter(
     prefix="/items",
