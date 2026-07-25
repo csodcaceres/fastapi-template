@@ -4,8 +4,6 @@ import logging
 from fastapi import FastAPI
 
 from app.core.logging import configure_logging
-from app.database.init_db import init_db
-
 
 logger = logging.getLogger(__name__)
 
@@ -28,8 +26,6 @@ async def lifespan(app: FastAPI):
     configure_logging()
 
     logger.info("Application started")
-
-    init_db()
 
     yield
 
